@@ -46,7 +46,8 @@ function App() {
   const [page, setPage] = useState(services["keep"].path);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full relative">
+      <span className="self-center">{page}</span>
       <iframe className="border-0 w-full flex-1" src={page} />
       <BottomSheet>
         {Object.entries(
@@ -58,7 +59,7 @@ function App() {
               return groups;
             }, {}),
         ).map(([category, entries]) => (
-          <div key={category}>
+          <div className="m-2" key={category}>
             <div>{category}</div>
             <div className="grid grid-cols-4">
               {entries.map(([name, service]) => (
