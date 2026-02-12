@@ -59,17 +59,29 @@ function App() {
               return groups;
             }, {}),
         ).map(([category, entries]) => (
-          <div className="m-2" key={category}>
-            <div>{category}</div>
-            <div className="grid grid-cols-4">
+          <div className="mb-3" key={category}>
+            <div className="text-xs uppercase text-gray-400 tracking-wide font-medium px-1 mb-2">
+              {category}
+            </div>
+            <div className="grid grid-cols-4 gap-2">
               {entries.map(([name, service]) => (
-                <div
+                <button
+                  type="button"
                   key={name}
                   onClick={() => setPage(service.path)}
-                  className="size-24 border"
+                  className={`flex flex-col items-center justify-center gap-1 p-3 rounded-xl transition-colors ${
+                    page === service.path
+                      ? "bg-blue-100 ring-2 ring-blue-400"
+                      : "bg-gray-100 hover:bg-gray-200"
+                  }`}
                 >
-                  {name}
-                </div>
+                  <span className="text-xl">
+                    {name[0].toUpperCase()}
+                  </span>
+                  <span className="text-xs text-gray-600 truncate w-full text-center">
+                    {name}
+                  </span>
+                </button>
               ))}
             </div>
           </div>
