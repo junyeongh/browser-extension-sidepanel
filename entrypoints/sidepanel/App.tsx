@@ -42,12 +42,23 @@ const services: Record<string, Service> = {
   },
 } as const;
 
+const defaultService = "keep";
+
+function getServiceName(path: string): string {
+  const entry = Object.entries(services).find(([, s]) => s.path === path);
+  return entry ? entry[0].charAt(0).toUpperCase() + entry[0].slice(1) : "";
+}
+
 function App() {
-  const [page, setPage] = useState(services["keep"].path);
+  const [page, setPage] = useState(services[defaultService].path);
 
   return (
     <div className="flex flex-col h-full relative">
-      <span className="self-center">{page}</span>
+      <div className="flex items-center px-3 py-2 border-b border-gray-200 bg-white">
+        <span className="text-sm font-medium text-gray-700">
+          {getServiceName(page)}
+        </span>
+      </div>
       <iframe className="border-0 w-full flex-1" src={page} />
       <BottomSheet>
         {Object.entries(
