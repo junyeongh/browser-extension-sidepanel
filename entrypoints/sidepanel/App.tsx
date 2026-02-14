@@ -51,16 +51,26 @@ function getServiceName(path: string): string {
 
 function App() {
   const [page, setPage] = useState(services[defaultService].path);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const selectService = (path: string) => {
+    setPage(path);
+    setSheetOpen(false);
+  };
 
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full relative overflow-hidden">
       <div className="flex items-center px-3 py-2 border-b border-gray-200 bg-white">
         <span className="text-sm font-medium text-gray-700">
           {getServiceName(page)}
         </span>
       </div>
-      <iframe className="border-0 w-full flex-1" src={page} />
-      <BottomSheet>
+      <iframe className="border-0 w-full flex-1 pb-20" src={page} />
+      <BottomSheet
+        open={sheetOpen}
+        onToggle={() => setSheetOpen(true)}
+        onClose={() => setSheetOpen(false)}
+      >
         {Object.entries(
           Object.entries(services)
             .filter(([, service]) => service.enabled)
@@ -79,16 +89,14 @@ function App() {
                 <button
                   type="button"
                   key={name}
-                  onClick={() => setPage(service.path)}
+                  onClick={() => selectService(service.path)}
                   className={`flex flex-col items-center justify-center gap-1 p-3 rounded-xl transition-colors ${
                     page === service.path
                       ? "bg-blue-100 ring-2 ring-blue-400"
                       : "bg-gray-100 hover:bg-gray-200"
                   }`}
                 >
-                  <span className="text-xl">
-                    {name[0].toUpperCase()}
-                  </span>
+                  <span className="text-xl">{name[0].toUpperCase()}</span>
                   <span className="text-xs text-gray-600 truncate w-full text-center">
                     {name}
                   </span>
