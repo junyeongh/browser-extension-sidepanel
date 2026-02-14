@@ -13,6 +13,11 @@ function App() {
     setSheetOpen(false);
   };
 
+  const serviceInitial = (name: string) => name.charAt(0).toUpperCase();
+
+  const fallbackLogo = (path: string) =>
+    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(path)}&sz=64`;
+
   return (
     <div className="flex flex-col h-full relative overflow-hidden">
       <div className="flex items-center px-3 py-2 border-b border-gray-200 bg-white">
@@ -50,7 +55,20 @@ function App() {
                         : "bg-gray-100 hover:bg-gray-200"
                     }`}
                   >
-                    <span className="text-xl">{name[0].toUpperCase()}</span>
+                    <img
+                      src={fallbackLogo(service.path)}
+                      alt={`${name} logo`}
+                      className="w-6 h-6 object-contain"
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                        event.currentTarget.nextElementSibling?.classList.remove(
+                          "hidden",
+                        );
+                      }}
+                    />
+                    <span className="text-xl hidden">
+                      {serviceInitial(name)}
+                    </span>
                     <span className="text-xs text-gray-600 truncate w-full text-center">
                       {name}
                     </span>

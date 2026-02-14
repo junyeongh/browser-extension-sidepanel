@@ -1,6 +1,5 @@
 export type Service = {
   enabled: boolean;
-  logo: string;
   path: string;
 };
 
