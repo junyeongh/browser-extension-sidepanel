@@ -25,7 +25,7 @@ function App() {
           {getServiceName(page)}
         </span>
       </div>
-      <iframe className="border-0 w-full flex-1 pb-20" src={page} />
+      <iframe className="border-0 w-full flex-1 pb-7.5" src={page} />
       <BottomSheet
         open={sheetOpen}
         onToggle={() => setSheetOpen(true)}

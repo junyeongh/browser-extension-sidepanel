@@ -18,7 +18,7 @@ export const services: Services = {
     },
     gemini: {
       enabled: true,
-      path: "https://gemini.google.com/app",
+      path: "https://gemini.google.com/",
     },
     chatGPT: {
       enabled: true,

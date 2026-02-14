@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "priority": 1,
+    "priority": 10,
     "action": {
       "type": "modifyHeaders",
       "requestHeaders": [
@@ -30,8 +30,63 @@
       ]
     },
     "condition": {
-      "urlFilter": "|https*",
-      "resourceTypes": ["sub_frame"]
+      "resourceTypes": ["sub_frame"],
+      "requestDomains": ["tasks.google.com", "keep.google.com", "claude.ai"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 20,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "operation": "remove", "header": "X-Frame-Options" },
+        { "operation": "remove", "header": "Frame-Options" },
+        { "operation": "remove", "header": "Content-Security-Policy" },
+        {
+          "operation": "remove",
+          "header": "Content-Security-Policy-Report-Only"
+        },
+        { "operation": "remove", "header": "Cross-Origin-Embedder-Policy" },
+        { "operation": "remove", "header": "Cross-Origin-Opener-Policy" },
+        { "operation": "remove", "header": "Cross-Origin-Resource-Policy" }
+      ]
+    },
+    "condition": {
+      "resourceTypes": ["sub_frame"],
+      "requestDomains": [
+        "chatgpt.com",
+        "chat.openai.com",
+        "openai.com",
+        "auth.openai.com",
+        "auth0.openai.com",
+        "challenges.cloudflare.com",
+        "cloudflare.com"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 30,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "operation": "remove", "header": "X-Frame-Options" },
+        { "operation": "remove", "header": "Frame-Options" },
+        { "operation": "remove", "header": "Content-Security-Policy" },
+        {
+          "operation": "remove",
+          "header": "Content-Security-Policy-Report-Only"
+        }
+      ]
+    },
+    "condition": {
+      "resourceTypes": ["sub_frame"],
+      "requestDomains": [
+        "gemini.google.com",
+        "google.com",
+        "accounts.google.com"
+      ]
     }
   }
 ]
